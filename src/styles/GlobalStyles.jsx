@@ -1,9 +1,11 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
-    * {
+    *, *::after, *::before {
         box-sizing: border-box;
         font-family: 'Open Sans', sans-serif;
+        padding: 0;
+        margin: 0;
     }
 
     body {

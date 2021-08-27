@@ -4,9 +4,11 @@ import { useAuth } from "../../hooks/useAuth";
 import { LoginPage } from "./styles";
 import { FcGoogle } from "react-icons/fc";
 
-import banner from "../../assets/images/banner.svg";
+import HeroBox from '../../components/HeroBox'
 import { database } from "../../services/firebase";
 import toast, {Toaster} from 'react-hot-toast'
+import {ButtonFilled} from '../../components/ButtonFilled'
+import {Input} from '../../components/Input'
 
 export default function Index() {
     const { user, signInWithGoogle } = useAuth();
@@ -46,15 +48,7 @@ export default function Index() {
 
     return (
         <LoginPage>
-            <div className="left">
-                <div>
-                    <h1>Make live interations</h1>
-                    <p>Easy. Simple. Awesome.</p>
-                </div>
-                <img src={banner} alt="Banner" />
-
-                <span>&copy; Copyright 2021</span>
-            </div>
+            <HeroBox />
             <div className="right">
                 <div>
                     <h2>Login with just a click</h2>
@@ -64,8 +58,8 @@ export default function Index() {
                     </button>
                     <p>or enter in an existent room</p>
                     <form onSubmit={handleJoinRoom}>
-                        <input type="text" placeholder="Room code" value={roomCode} onChange={e => setRoomCode(e.target.value)} />
-                        <button type="submit">Enter</button>
+                        <Input type="text" placeholder="Room code" value={roomCode} onChange={e => setRoomCode(e.target.value)} />
+                        <ButtonFilled type="submit">Enter</ButtonFilled>
                     </form>
                 </div>
             </div>

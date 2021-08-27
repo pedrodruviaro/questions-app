@@ -9,6 +9,7 @@ import AuthContextProvider from './contexts/AuthContext'
 
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import Room from "./pages/Room";
 
 function App() {
     return (
@@ -21,6 +22,7 @@ function App() {
                     <Switch>
                         <Route path="/" exact component={Login} />
                         <Route path="/home" component={Home} />
+                        <Route path="/rooms/:id" component={Room} />
                     </Switch>
                 </BrowserRouter>
             </AuthContextProvider>

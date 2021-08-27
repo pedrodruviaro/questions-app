@@ -6,47 +6,6 @@ export const LoginPage = styled.div`
     align-items: stretch;
     min-height: 100vh;
 
-    .left {
-        flex: 6;
-        background-color: #fdfdfd;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 6rem;
-        padding: 1.5rem;
-
-        border-right: 2px solid ${props => props.theme.accent};;
-
-        > div {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        h1 {
-            font-weight: 300;
-            text-transform: uppercase;
-            font-size: 2.25rem;
-        }
-
-        img {
-            width: 85%;
-            max-width: 500px;
-        }
-
-        p {
-            font-weight: 600;
-            font-size: 1.25rem;
-        }
-
-        span {
-            font-size: .8rem;
-            opacity: .9;
-        }
-    }
-
     .right {
         padding: 1rem;
         display: flex;
@@ -117,43 +76,6 @@ export const LoginPage = styled.div`
 
         form {
             width: 100%;
-            
-            input {
-                display: block;
-                margin-bottom: 1rem;
-                width: 100%;
-                outline: none;
-                padding: .5rem 1rem;
-                font-size: 1rem;
-                border: 1px solid gray;
-                border-radius: 4px;
-                transition: border-color .3s ease-out;
-
-                &:focus {
-                    border-color: ${props => props.theme.accent};
-                }
-            }
-
-            > button {
-                outline: none;
-                background-color: ${props => props.theme.accent};
-                color: #fdfdfd;
-                border: none;
-                font-size: 1rem;
-                display: flex;
-                align-items: center;
-                gap: .5rem;
-                padding: .25em .75em;
-                border-radius: 4px;
-                cursor: pointer;
-                margin: 0 auto;
-                transition: all .3s ease-in-out;
-
-                &:hover,
-                &:focus {
-                    filter: brightness(.8);
-                }
-            }
         }
     }
 `
