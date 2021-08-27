@@ -67,6 +67,8 @@ export const LoginPage = styled.div`
             h2 {
                 font-size: 2rem;
                 font-weight: 400;
+                text-align: center;
+                line-height: 1.1;
             }
 
             > button {
@@ -76,6 +78,8 @@ export const LoginPage = styled.div`
                 font-size: 1rem;
                 display: flex;
                 align-items: center;
+                justify-content: space-between;
+                text-align: center;
                 gap: .5rem;
                 padding: .5rem 1rem;
                 font-weight: 600;
@@ -88,6 +92,10 @@ export const LoginPage = styled.div`
                 &:focus {
                     transform: scale(1.1);
                     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+                }
+
+                svg {
+                    font-size: 1.5rem;
                 }
             }
 

@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { useAuth } from "../../hooks/useAuth";
 import { LoginPage } from "./styles";
 import { FcGoogle } from "react-icons/fc";
 
 import banner from "../../assets/images/banner.svg";
+import { database } from "../../services/firebase";
+import toast, {Toaster} from 'react-hot-toast'
 
 export default function Index() {
     const { user, signInWithGoogle } = useAuth();
     const history = useHistory();
+    const [roomCode, setRoomCode] = useState("")
+
+    // toast
+    const notifyError = () => toast.error('Room closed or not existent!')
 
     async function handleLogin() {
         if (!user) {
@@ -16,6 +22,26 @@ export default function Index() {
         }
 
         history.push("/home");
+    }
+
+    async function handleJoinRoom(e){
+        e.preventDefault()
+        const input = e.target[0]
+
+        if(roomCode.trim() === ""){
+            return
+        }
+
+        const databaseRoomRef = await database.ref(`rooms/${roomCode}`).get()
+        const roomExist = databaseRoomRef.exists()
+        
+        if(roomExist){
+            history.push(`/rooms/${roomCode}`)
+        } else {
+            notifyError()
+            input.focus()
+            return
+        }
     }
 
     return (
@@ -37,12 +63,18 @@ export default function Index() {
                         Enter with your Google account
                     </button>
                     <p>or enter in an existent room</p>
-                    <form>
-                        <input type="text" placeholder="Room code" />
-                        <button>Enter</button>
+                    <form onSubmit={handleJoinRoom}>
+                        <input type="text" placeholder="Room code" value={roomCode} onChange={e => setRoomCode(e.target.value)} />
+                        <button type="submit">Enter</button>
                     </form>
                 </div>
             </div>
+
+            <Toaster 
+                toastOptions={{
+                    duration: 2500
+                }}
+            />
         </LoginPage>
     );
 }
