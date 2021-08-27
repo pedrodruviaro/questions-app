@@ -12,7 +12,7 @@ export const ButtonFilled = styled.button`
     padding: 0.25em 0.75em;
     border-radius: 4px;
     cursor: pointer;
-    margin: 0 auto;
+    margin: ${props => props.margin ? props.margin : "0 auto"};
     transition: all 0.3s ease-in-out;
     
 

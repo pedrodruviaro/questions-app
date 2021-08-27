@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const RoomPage = styled.div`
+export const AdminPage = styled.div`
     display: grid;
     grid-template-areas:
         "header"
@@ -46,31 +46,6 @@ export const RoomPage = styled.div`
                 strong {
                     color: ${props => props.theme.accent};
                     font-size: 1rem;
-                }
-            }
-        }
-
-
-        form {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            margin-bottom: 3rem;
-
-            textarea {
-                width: 100%;
-                resize: vertical;
-                min-height: 120px;
-                outline: none;
-                font-size: 1rem;
-                margin-bottom: 1rem;
-                padding: 0.5rem;
-                border-radius: 4px;
-                border: 1px solid gray;
-                transition: border-color 0.3s ease-out;
-
-                &:focus {
-                    border-color: ${(props) => props.theme.accent};
                 }
             }
         }
@@ -125,25 +100,27 @@ export const RoomPage = styled.div`
                     font-weight: 600;
                     color: #969696;
                 }
-            }
-        }
-    }
 
-    .warn {
-        font-size: .9rem;
-        
-        button {
-            outline: none;
-            border: none;
-            background-color: transparent;
-            font-weight: 600;
-            color: ${props => props.theme.accent};
-            cursor: pointer;
-            margin-left: .5rem;
+                > footer { 
+                    display: flex;
+                    align-items: center;
+                    flex-direction: row-reverse;
+                    gap: 1rem;
+                    margin-top: 1rem;
 
-            &:hover,
-            &:focus {
-                text-decoration: underline;
+                    > button {
+                        outline: none;
+                        border: none;
+                        color: ${props => props.theme.accent};
+                        background-color: transparent;
+                        cursor: pointer;
+
+                        svg {
+                            font-size: 1.25rem;
+                            pointer-events: none;
+                        }
+                    }
+                }   
             }
         }
     }

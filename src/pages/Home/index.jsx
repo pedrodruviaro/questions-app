@@ -4,12 +4,12 @@ import { HomePage } from "./styles";
 import HeroBox from "../../components/HeroBox";
 import { ButtonFilled } from "../../components/ButtonFilled";
 import { Input } from "../../components/Input";
-import {useAuth} from '../../hooks/useAuth'
-import {database} from '../../services/firebase'
+import { useAuth } from "../../hooks/useAuth";
+import { database } from "../../services/firebase";
 
 export default function Index() {
     const history = useHistory();
-    const {user} = useAuth()
+    const { user } = useAuth();
     const [roomName, setRoomName] = useState("");
 
     async function handleNewRoom(e) {
@@ -22,12 +22,21 @@ export default function Index() {
         const newRoom = {
             title: roomName,
             author: user.name,
-            authorId: user.id
+            authorId: user.id,
+        };
+
+        const firebaseRoom = await database.ref("rooms").push(newRoom);
+
+        const authorRef = await (
+            await database.ref(`rooms/${firebaseRoom.key}`).get("authorId")
+        ).val().authorId;
+
+        if (authorRef === user.id) {
+            history.push(`/admin/rooms/${firebaseRoom.key}`);
+            return
         }
 
-        const firebaseRoom = await database.ref('rooms').push(newRoom)
-        
-        history.push(`/rooms/${firebaseRoom.key}`)
+        history.push(`/rooms/${firebaseRoom.key}`);
     }
 
     return (

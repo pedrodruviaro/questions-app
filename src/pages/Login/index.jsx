@@ -36,6 +36,11 @@ export default function Index() {
 
         const databaseRoomRef = await database.ref(`rooms/${roomCode}`).get()
         const roomExist = databaseRoomRef.exists()
+
+        if (user && databaseRoomRef.val().authorId === user.id){
+            history.push(`admin/rooms/${roomCode}`)
+            return
+        }
         
         if(roomExist){
             history.push(`/rooms/${roomCode}`)

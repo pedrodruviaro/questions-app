@@ -5,9 +5,10 @@ import toast, { Toaster } from "react-hot-toast";
 import { MdContentCopy } from "react-icons/md";
 import { BiCheckDouble } from "react-icons/bi";
 import { useAuth } from '../../hooks/useAuth';
+import { ButtonFilled } from '../ButtonFilled';
 
 
-export default function Index() {
+export default function Index({handleLogin}) {
 
     const { user } = useAuth();
 
@@ -52,7 +53,7 @@ export default function Index() {
                         <span>{user.name}</span>
                     </div>
                 ) : (
-                    <button>Sign In</button>
+                    <ButtonFilled margin="0" onClick={handleLogin}>Sign In</ButtonFilled>
                 )}
         </Header>
     )

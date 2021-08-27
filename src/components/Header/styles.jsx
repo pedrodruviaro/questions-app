@@ -23,6 +23,7 @@ export const Header = styled.header`
         gap: 0.5rem;
         border-radius: 4px;
         padding: 0.25rem 0.5rem;
+        background-color: #fff;
 
         button {
             border: none;

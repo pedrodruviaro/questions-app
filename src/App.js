@@ -10,6 +10,8 @@ import AuthContextProvider from './contexts/AuthContext'
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Room from "./pages/Room";
+import PrivateRoute from './components/PrivateRoute'
+import AdminRoom from "./pages/AdminRoom/index";
 
 function App() {
     return (
@@ -23,6 +25,8 @@ function App() {
                         <Route path="/" exact component={Login} />
                         <Route path="/home" component={Home} />
                         <Route path="/rooms/:id" component={Room} />
+
+                        <PrivateRoute path="/admin/rooms/:id" component={AdminRoom} />
                     </Switch>
                 </BrowserRouter>
             </AuthContextProvider>

@@ -1,25 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
+import { AdminPage } from './styles'
 import { useAuth } from "../../hooks/useAuth";
-import { RoomPage } from "./styles";
 import { useHistory, useParams } from "react-router-dom";
-import { ButtonFilled } from "../../components/ButtonFilled";
 
 import { database } from "../../services/firebase";
-import moment from "moment";
 import Header from "../../components/Header/index";
 import Footer from "../../components/Footer/index";
-import toast, { Toaster } from "react-hot-toast";
+// import toast, { Toaster } from "react-hot-toast";
+import { FiTrash, FiCheckSquare } from "react-icons/fi";
 
 export default function Index() {
-    const { user, signInWithGoogle } = useAuth();
+
+    const { signInWithGoogle } = useAuth();
     const params = useParams().id;
     const history = useHistory();
-
-    const [newQuestion, setNewQuestion] = useState("");
     const [questions, setQuestions] = useState([]);
     const [title, setTitle] = useState("");
 
-    const notifyQuestion = () => toast.success("Question sended!");
+    // const notifyQuestion = () => toast.success("Question sended!");
+
+    async function handleLogin() {
+        await signInWithGoogle();
+
+        history.push(`/rooms/${params}`);
+    }
 
     useEffect(() => {
         const dbRef = database.ref(`rooms/${params}`);
@@ -48,39 +52,9 @@ export default function Index() {
     });
     }, [params]);
 
-    async function handleLogin() {
-        await signInWithGoogle();
-
-        history.push(`/rooms/${params}`);
-    }
-
-    async function handleNewQuestion(e) {
-        e.preventDefault();
-
-        if (!user) {
-            return;
-        }
-
-        if (newQuestion.trim() === "") {
-            return;
-        }
-
-        const question = {
-            content: newQuestion,
-            authorName: user.name,
-            authorAvatar: user.avatar,
-            responded: false,
-            createdAt: moment().format("lll"),
-        };
-
-        await database.ref(`rooms/${params}/questions`).push(question);
-
-        notifyQuestion();
-        setNewQuestion("");
-    }
 
     return (
-        <RoomPage>
+        <AdminPage>
             <Header handleLogin={handleLogin} />
 
             <main>
@@ -90,30 +64,6 @@ export default function Index() {
                         <strong>{questions.length}</strong> question remaining
                     </span>
                 </div>
-                <form onSubmit={handleNewQuestion}>
-                    <textarea
-                        placeholder="Type your question"
-                        value={newQuestion}
-                        onChange={(e) => setNewQuestion(e.target.value)}
-                    />
-                    {user ? (
-                        <ButtonFilled type="submit">Send Question</ButtonFilled>
-                    ) : (
-                        <span className="warn">
-                            You need to be logged in to make a question.
-                            <button onClick={handleLogin} href="#">
-                                Click here.
-                            </button>
-                        </span>
-                    )}
-
-                    <Toaster
-                        toastOptions={{
-                            duration: 2500,
-                        }}
-                    />
-                </form>
-
                 <div>
                     <ul>
                         {questions
@@ -132,6 +82,14 @@ export default function Index() {
                                               {question.createdAt}
                                           </span>
                                       </div>
+                                      <footer>
+                                          <button>
+                                              <FiTrash />
+                                          </button>
+                                          <button>
+                                            <FiCheckSquare />
+                                          </button>
+                                      </footer>
                                   </li>
                               ))
                             : ""}
@@ -140,6 +98,6 @@ export default function Index() {
             </main>
 
             <Footer />
-        </RoomPage>
+        </AdminPage>
     );
 }
