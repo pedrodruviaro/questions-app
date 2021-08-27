@@ -10,4 +10,8 @@ export const GlobalStyles = createGlobalStyle`
         color: ${props => props.theme.dark};
         background-color: ${props => props.theme.bodyBackground};
     }
+
+    p {
+        line-height: 1.5;
+    }
 `
