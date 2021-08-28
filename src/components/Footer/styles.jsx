@@ -18,7 +18,7 @@ export const Footer = styled.footer`
     nav {
         display: flex;
         align-items: center;
-        gap: 1rem;
+        gap: 2rem;
         font-size: 1rem;
     }
 

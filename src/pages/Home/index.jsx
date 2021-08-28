@@ -9,7 +9,7 @@ import { database } from "../../services/firebase";
 
 export default function Index() {
     const history = useHistory();
-    const { user } = useAuth();
+    const { user, setIsAdmin } = useAuth();
     const [roomName, setRoomName] = useState("");
 
     async function handleNewRoom(e) {
@@ -32,6 +32,7 @@ export default function Index() {
         ).val().authorId;
 
         if (authorRef === user.id) {
+            setIsAdmin(true)
             history.push(`/admin/rooms/${firebaseRoom.key}`);
             return
         }
