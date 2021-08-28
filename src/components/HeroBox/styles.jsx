@@ -10,7 +10,7 @@ export const HeroBox = styled.div`
         gap: 6rem;
         padding: 1.5rem;
 
-        border-right: 2px solid ${props => props.theme.accent};;
+        border-right: 2px solid ${props => props.theme.accent};
 
         > div {
             text-align: center;
@@ -39,4 +39,21 @@ export const HeroBox = styled.div`
             font-size: .8rem;
             opacity: .9;
         }
+
+
+        @media (max-width: 768px){
+            background-color: ${props => props.theme.bodyBackground};
+            flex: 1;
+            border: none;
+            border-bottom: 2px solid  ${props => props.theme.accent};
+            justify-content: flex-start;
+
+            img {
+                display: none;
+            }
+
+            span {
+                display: none;
+            }
+    }
 `

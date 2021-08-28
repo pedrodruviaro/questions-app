@@ -10,6 +10,11 @@ export const Footer = styled.footer`
     align-items: center;
     justify-content: space-between;
 
+    @media (max-width: 600px){
+            flex-direction: column;
+            gap: 2rem;
+    }
+
     nav {
         display: flex;
         align-items: center;

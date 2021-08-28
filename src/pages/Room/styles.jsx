@@ -26,6 +26,10 @@ export const RoomPage = styled.div`
             margin: 0 auto;
             margin-bottom: 1.5rem;
 
+            @media (max-width: 600px){
+            flex-direction: column;
+            }
+
 
             h2 {
                 font-size: 1.75rem;

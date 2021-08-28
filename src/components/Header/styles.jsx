@@ -9,6 +9,10 @@ export const Header = styled.header`
     gap: 1.5rem;
     padding: 1rem 1.5rem;
 
+    @media (max-width: 600px){
+        flex-direction: column-reverse;
+    }
+
     .room-infos {
         display: flex;
         align-items: center;

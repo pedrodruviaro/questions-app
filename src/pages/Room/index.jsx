@@ -28,7 +28,6 @@ export default function Index() {
             if (snapshot.exists()) {
                 const rawData = snapshot.val();
                 const firebaseQuestions = rawData.questions ?? {};
-                console.log(firebaseQuestions);
                 const parsedData = Object.entries(firebaseQuestions).map(
                     ([key, value]) => {
                         return {
@@ -42,7 +41,6 @@ export default function Index() {
                 );
 
                 setTitle(rawData.title);
-                console.log(rawData.authorId);
                 setQuestions(parsedData);
             }
     });

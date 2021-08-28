@@ -14,6 +14,8 @@ export default function Index() {
     const { user, signInWithGoogle } = useAuth();
     const history = useHistory();
     const [roomCode, setRoomCode] = useState("")
+    const [waiting, setWaiting] = useState(false)
+    const [inputWarn, setInputWarn] = useState(false)
 
     // toast
     const notifyError = () => toast.error('Room closed or not existent!')
@@ -31,20 +33,27 @@ export default function Index() {
         const input = e.target[0]
 
         if(roomCode.trim() === ""){
+            setInputWarn(true)
             return
         }
-
+    
+        setInputWarn(false)
+    
+        
         const databaseRoomRef = await database.ref(`rooms/${roomCode}`).get()
         const roomExist = databaseRoomRef.exists()
-
-        if (user && databaseRoomRef.val().authorId === user.id){
+        
+        if (user && roomExist && databaseRoomRef.val().authorId === user.id){
+            setWaiting(true)
             history.push(`admin/rooms/${roomCode}`)
+            setWaiting(false)
             return
         }
         
         if(roomExist){
             history.push(`/rooms/${roomCode}`)
         } else {
+            setWaiting(false)
             notifyError()
             input.focus()
             return
@@ -62,8 +71,15 @@ export default function Index() {
                         Enter with your Google account
                     </button>
                     <p>or enter in an existent room</p>
+
+                    {waiting ? <h3>Joining...</h3> : ""}
+
                     <form onSubmit={handleJoinRoom}>
-                        <Input type="text" placeholder="Room code" value={roomCode} onChange={e => setRoomCode(e.target.value)} />
+                        {inputWarn ? <p>Please type something...</p> : ""}
+                        <Input type="text" placeholder="Room code" value={roomCode} onChange={e => {
+                            setRoomCode(e.target.value)
+                            setInputWarn(false)
+                        }} />
                         <ButtonFilled type="submit">Enter</ButtonFilled>
                     </form>
                 </div>

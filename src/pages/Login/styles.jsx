@@ -6,12 +6,26 @@ export const LoginPage = styled.div`
     align-items: stretch;
     min-height: 100vh;
 
+    @media (max-width: 768px){
+        flex-direction: column;
+        justify-content: center;
+        min-height: auto;
+        gap: 3rem;
+        padding: 3rem 0;
+
+    }
+
     .right {
         padding: 1rem;
         display: flex;
         align-items: center;
         justify-content: center;
         flex: 8;
+
+        @media (max-width: 768px){
+            flex: 1;
+            align-items: flex-start;
+        }
         
         div {
             display: flex;
@@ -22,6 +36,11 @@ export const LoginPage = styled.div`
             padding: 4rem;
             border-radius: 4px;
             box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+
+            @media (max-width: 768px){
+                box-shadow: none;
+                padding: 0;
+            }
 
             h2 {
                 font-size: 2rem;
@@ -58,7 +77,7 @@ export const LoginPage = styled.div`
                 }
             }
 
-            p {
+            > p {
                 color: gray;
                 font-size: .9rem;
 
@@ -76,6 +95,11 @@ export const LoginPage = styled.div`
 
         form {
             width: 100%;
+
+            p {
+                font-size: .9rem;
+                color: lightcoral;
+            }
         }
     }
 `

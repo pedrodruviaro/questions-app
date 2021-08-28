@@ -6,12 +6,25 @@ export const HomePage = styled.div`
     align-items: stretch;
     min-height: 100vh;
 
+    @media (max-width: 768px){
+        flex-direction: column;
+        justify-content: center;
+        min-height: auto;
+        gap: 3rem;
+        padding: 3rem 0;
+
+    }
+
     .right {
         padding: 1rem;
         display: flex;
         align-items: center;
         justify-content: center;
         flex: 8;
+
+        @media (max-width: 768px){ 
+            text-align: center;
+        }
 
         > div {
             display: flex;

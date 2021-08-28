@@ -12,6 +12,10 @@ import Home from "./pages/Home";
 import Room from "./pages/Room";
 import PrivateRoute from './components/PrivateRoute'
 import AdminRoom from "./pages/AdminRoom/index";
+import AboutUs from "./pages/AboutUs/index";
+import Contact from "./pages/Contact/index";
+import ReportBug from "./pages/ReportBug/index";
+import Page404 from "./pages/Page404/index";
 
 function App() {
     return (
@@ -27,6 +31,12 @@ function App() {
                         <Route path="/rooms/:id" component={Room} />
 
                         <PrivateRoute path="/admin/rooms/:id" component={AdminRoom} />
+
+                        <Route path="/about-us" component={AboutUs} />
+                        <Route path="/contact" component={Contact} />
+                        <Route path="/report-bug" component={ReportBug} />
+                        <Route path="*" component={Page404} />
+
                     </Switch>
                 </BrowserRouter>
             </AuthContextProvider>
