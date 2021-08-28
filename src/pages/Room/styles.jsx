@@ -129,6 +129,16 @@ export const RoomPage = styled.div`
                     font-weight: 600;
                     color: #969696;
                 }
+
+                .status {
+                    color: lightcoral;
+                    margin-top: 1rem;
+                    margin-left: auto;
+                    display: flex;
+                    justify-content: flex-end;
+                    font-size: .8rem;
+                    text-transform: uppercase;
+                }
             }
         }
     }

@@ -18,6 +18,7 @@ export default function Index() {
     const [newQuestion, setNewQuestion] = useState("");
     const [questions, setQuestions] = useState([]);
     const [title, setTitle] = useState("");
+    const [numberOfQuestions, setNumberOfQuestions] = useState(0)
 
     const notifyQuestion = () => toast.success("Question sended!");
 
@@ -36,6 +37,7 @@ export default function Index() {
                             authorName: value.authorName,
                             authorAvatar: value.authorAvatar,
                             createdAt: value.createdAt,
+                            responded: value.responded
                         };
                     }
                 );
@@ -45,6 +47,20 @@ export default function Index() {
             }
     });
     }, [params]);
+
+    useEffect(() => {
+        let i = questions.length
+        questions.forEach(question => {
+            if(!question.responded){
+                return
+            } else {
+                return i = i - 1
+            }
+        })
+
+        setNumberOfQuestions(i)
+
+    }, [questions])
 
     async function handleLogin() {
         await signInWithGoogle();
@@ -85,7 +101,7 @@ export default function Index() {
                 <div className="room-info">
                     <h2>{title}</h2>
                     <span>
-                        <strong>{questions.length}</strong> question remaining
+                        <strong>{numberOfQuestions}</strong> question remaining
                     </span>
                 </div>
                 <form onSubmit={handleNewQuestion}>
@@ -129,6 +145,9 @@ export default function Index() {
                                           <span className="datetime">
                                               {question.createdAt}
                                           </span>
+                                      </div>
+                                      <div className="status">
+                                        {!question.responded ? "" : <span>responded</span> }
                                       </div>
                                   </li>
                               ))

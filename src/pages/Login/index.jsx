@@ -11,7 +11,7 @@ import {ButtonFilled} from '../../components/ButtonFilled'
 import {Input} from '../../components/Input'
 
 export default function Index() {
-    const { user, signInWithGoogle } = useAuth();
+    const { user, signInWithGoogle, setIsAdmin } = useAuth();
     const history = useHistory();
     const [roomCode, setRoomCode] = useState("")
     const [waiting, setWaiting] = useState(false)
@@ -44,6 +44,7 @@ export default function Index() {
         const roomExist = databaseRoomRef.exists()
         
         if (user && roomExist && databaseRoomRef.val().authorId === user.id){
+            setIsAdmin(true)
             setWaiting(true)
             history.push(`admin/rooms/${roomCode}`)
             setWaiting(false)

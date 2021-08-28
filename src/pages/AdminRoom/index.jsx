@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { AdminPage } from './styles'
+import React, { useEffect, useState } from "react";
+import { AdminPage } from "./styles";
 import { useAuth } from "../../hooks/useAuth";
 import { useHistory, useParams } from "react-router-dom";
 
@@ -7,15 +7,15 @@ import { database } from "../../services/firebase";
 import Header from "../../components/Header/index";
 import Footer from "../../components/Footer/index";
 // import toast, { Toaster } from "react-hot-toast";
-import { FiTrash, FiCheckSquare } from "react-icons/fi";
+import { FiTrash, FiCheckSquare, FiRotateCcw } from "react-icons/fi";
 
 export default function Index() {
-
     const { signInWithGoogle } = useAuth();
     const params = useParams().id;
     const history = useHistory();
     const [questions, setQuestions] = useState([]);
     const [title, setTitle] = useState("");
+    const [numberOfQuestions, setNumberOfQuestions] = useState(0)
 
     // const notifyQuestion = () => toast.success("Question sended!");
 
@@ -40,6 +40,7 @@ export default function Index() {
                             authorName: value.authorName,
                             authorAvatar: value.authorAvatar,
                             createdAt: value.createdAt,
+                            responded: value.responded,
                         };
                     }
                 );
@@ -47,9 +48,44 @@ export default function Index() {
                 setTitle(rawData.title);
                 setQuestions(parsedData);
             }
-    });
+        });
     }, [params]);
 
+
+    useEffect(() => {
+        let i = questions.length
+        questions.forEach(question => {
+            if(!question.responded){
+                return
+            } else {
+                return i = i - 1
+            }
+        })
+
+        setNumberOfQuestions(i)
+
+    }, [questions])
+
+
+    // deleting
+    async function handleDeleteQuestion(id) {
+        await database.ref(`rooms/${params}/questions/${id}`).remove();
+        console.log(`pergunta removida`);
+    }
+
+    // checked
+    async function handleCheckQuestion(id) {
+        await database
+            .ref(`rooms/${params}/questions/${id}`)
+            .update({ responded: true });
+    }
+
+    //uncheck
+    async function handleUncheckQuestion(id) {
+        await database
+        .ref(`rooms/${params}/questions/${id}`)
+        .update({ responded: false });
+    }
 
     return (
         <AdminPage>
@@ -59,7 +95,7 @@ export default function Index() {
                 <div className="room-info">
                     <h2>{title}</h2>
                     <span>
-                        <strong>{questions.length}</strong> question remaining
+                        <strong>{numberOfQuestions}</strong> question remaining
                     </span>
                 </div>
                 <div>
@@ -81,12 +117,37 @@ export default function Index() {
                                           </span>
                                       </div>
                                       <footer>
-                                          <button>
+                                          <button
+                                              onClick={() =>
+                                                  handleDeleteQuestion(
+                                                      question.id
+                                                  )
+                                              }
+                                              >
                                               <FiTrash />
                                           </button>
-                                          <button>
-                                            <FiCheckSquare />
-                                          </button>
+                                          {!question.responded ? (
+                                              <button
+                                              onClick={() =>
+                                                      handleCheckQuestion(
+                                                          question.id
+                                                          )
+                                                        }
+                                                        >
+                                                  <FiCheckSquare />
+                                              </button>
+                                          ) : (
+                                              <button
+                                              onClick={() =>
+                                                handleUncheckQuestion(
+                                                    question.id
+                                                    )
+                                                }
+                                                >
+                                                  <FiRotateCcw />
+                                              </button>
+                                          )}
+                                          {!question.responded ? "" : <span>responded</span> }
                                       </footer>
                                   </li>
                               ))
@@ -94,7 +155,6 @@ export default function Index() {
                     </ul>
                 </div>
             </main>
-
             <Footer />
         </AdminPage>
     );

@@ -7,6 +7,7 @@ export default function AuthContextProvider(props) {
 
     const [user, setUser] = useState(null)
     const [isAuthenticated, setIsAuthenticated] = useState(false)
+    const [isAdmin, setIsAdmin] = useState(false)
 
     useEffect(() => {
 
@@ -53,7 +54,7 @@ export default function AuthContextProvider(props) {
     }
 
     return (
-        <AuthContext.Provider value={{ user, isAuthenticated, signInWithGoogle }}>
+        <AuthContext.Provider value={{ user, isAuthenticated, signInWithGoogle, isAdmin, setIsAdmin }}>
             {props.children}
         </AuthContext.Provider>
     )

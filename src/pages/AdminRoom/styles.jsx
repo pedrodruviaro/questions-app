@@ -17,6 +17,7 @@ export const AdminPage = styled.div`
         width: 100%;
         margin: 0 auto;
         padding: 1.5rem;
+        position: relative;
 
         .room-info {
             display: flex;
@@ -26,10 +27,9 @@ export const AdminPage = styled.div`
             margin: 0 auto;
             margin-bottom: 1.5rem;
 
-            @media (max-width: 600px){
-            flex-direction: column;
+            @media (max-width: 600px) {
+                flex-direction: column;
             }
-
 
             h2 {
                 font-size: 1.75rem;
@@ -37,18 +37,18 @@ export const AdminPage = styled.div`
             }
 
             > span {
-                border: 1px solid ${props => props.theme.accent};
+                border: 1px solid ${(props) => props.theme.accent};
                 border-radius: 4px;
-                padding: .5rem;
-                background-color: ${props => props.theme.light};
-                font-size: .9rem;
+                padding: 0.5rem;
+                background-color: ${(props) => props.theme.light};
+                font-size: 0.9rem;
                 font-weight: 600;
                 display: flex;
                 align-items: center;
-                gap: .5rem;
+                gap: 0.5rem;
 
                 strong {
-                    color: ${props => props.theme.accent};
+                    color: ${(props) => props.theme.accent};
                     font-size: 1rem;
                 }
             }
@@ -105,26 +105,35 @@ export const AdminPage = styled.div`
                     color: #969696;
                 }
 
-                > footer { 
+                > footer {
                     display: flex;
                     align-items: center;
                     flex-direction: row-reverse;
                     gap: 1rem;
                     margin-top: 1rem;
 
+                    > span {
+                        font-size: .8rem;
+                        color: lightcoral;
+                        text-transform: uppercase;
+                    }
+
                     > button {
                         outline: none;
                         border: none;
-                        color: ${props => props.theme.accent};
+                        color: ${(props) => props.theme.accent};
                         background-color: transparent;
                         cursor: pointer;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
 
                         svg {
                             font-size: 1.25rem;
                             pointer-events: none;
                         }
                     }
-                }   
+                }
             }
         }
     }
